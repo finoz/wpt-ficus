@@ -1,0 +1,55 @@
+<!-- wp:template-part {"slug":"header","tagName":"header"} /-->
+
+<!-- wp:group {"tagName":"main","className":"site-main site-main--archive","layout":{"type":"constrained"}} -->
+<main class="wp-block-group site-main site-main--archive">
+
+	<!-- Titolo archivio (categoria, tag, data, autore) -->
+	<!-- wp:group {"className":"archive-header","layout":{"type":"constrained"}} -->
+	<div class="wp-block-group archive-header">
+		<!-- wp:query-title {"type":"archive","showPrefix":true} /-->
+		<!-- wp:term-description /-->
+	</div>
+	<!-- /wp:group -->
+
+	<!-- Lista post: stessa struttura di index ma con inherit:true per seguire la query WP -->
+	<!-- wp:query {"queryId":1,"query":{"perPage":10,"offset":0,"postType":"post","order":"desc","orderBy":"date","author":"","search":"","exclude":[],"sticky":"","inherit":true}} -->
+	<div class="wp-block-query">
+		<!-- wp:post-template {"layout":{"type":"grid","columnCount":2}} -->
+			<!-- wp:group {"className":"post-card","layout":{"type":"flex","orientation":"vertical"}} -->
+			<div class="wp-block-group post-card">
+				<!-- wp:post-featured-image {"isLink":true,"aspectRatio":"16/9"} /-->
+				<!-- wp:group {"className":"post-card__body","layout":{"type":"flex","orientation":"vertical"}} -->
+				<div class="wp-block-group post-card__body">
+					<!-- wp:post-terms {"term":"category","className":"post-card__category"} /-->
+					<!-- wp:post-title {"isLink":true,"level":2} /-->
+					<!-- wp:post-excerpt {"moreText":"Leggi","showMoreOnNewLine":false} /-->
+					<!-- wp:group {"className":"post-card__meta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+					<div class="wp-block-group post-card__meta">
+						<!-- wp:post-author-name /-->
+						<!-- wp:post-date /-->
+					</div>
+					<!-- /wp:group -->
+				</div>
+				<!-- /wp:group -->
+			</div>
+			<!-- /wp:group -->
+		<!-- /wp:post-template -->
+
+		<!-- wp:query-no-results -->
+		<!-- wp:paragraph -->
+		<p>Nessun articolo trovato in questo archivio.</p>
+		<!-- /wp:paragraph -->
+		<!-- /wp:query-no-results -->
+
+		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:query-pagination-previous /-->
+		<!-- wp:query-pagination-numbers /-->
+		<!-- wp:query-pagination-next /-->
+		<!-- /wp:query-pagination -->
+	</div>
+	<!-- /wp:query -->
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->

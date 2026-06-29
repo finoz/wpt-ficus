@@ -1,0 +1,15 @@
+// CHILDNAME — main stylesheet
+// I valori di brand vengono da theme.json → CSS custom properties WP.
+// Non ridichiarare valori: usa var(--wp--preset--*).
+
+@use 'reset';
+@use 'typography';
+@use 'layout';
+@use 'header';
+@use 'footer';
+
+// Block styles (contratto con ficus/inc/block-styles.php)
+@use 'blocks/button';
+@use 'blocks/group';
+@use 'blocks/navigation';
+@use 'blocks/query';

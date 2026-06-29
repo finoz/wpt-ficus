@@ -1,0 +1,42 @@
+// Footer del sito
+
+.wp-block-template-part[class*="footer"] {
+  background-color: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--surface);
+  margin-block-start: var(--wp--preset--spacing--8);
+}
+
+.site-footer__inner {
+  padding-block: var(--wp--preset--spacing--8);
+}
+
+.site-footer__columns {
+  gap: var(--wp--preset--spacing--7);
+
+  h4 {
+    color: var(--wp--preset--color--white);
+    margin-block-end: var(--wp--preset--spacing--4);
+  }
+
+  p,
+  a {
+    color: var(--wp--preset--color--surface);
+    font-size: var(--wp--preset--font-size--sm);
+  }
+
+  a:hover {
+    color: var(--wp--preset--color--accent);
+  }
+}
+
+.site-footer__bottom {
+  border-top: 1px solid rgb(255 255 255 / 0.15);
+  padding-block-start: var(--wp--preset--spacing--5);
+  margin-block-start: var(--wp--preset--spacing--6);
+
+  p {
+    font-size: var(--wp--preset--font-size--xs);
+    color: rgb(255 255 255 / 0.6);
+    margin: 0;
+  }
+}

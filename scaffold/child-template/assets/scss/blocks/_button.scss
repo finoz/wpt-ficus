@@ -1,0 +1,52 @@
+// Button block
+// Stili base + le varianti registrate in block-styles.php
+
+.wp-block-button__link {
+  font-family: var(--wp--preset--font-family--sans);
+  font-size: var(--wp--preset--font-size--base);
+  font-weight: 600;
+  padding: var(--wp--preset--spacing--3) var(--wp--preset--spacing--6);
+  border-radius: var(--wp--custom--radius--sm);
+  transition: all var(--wp--custom--transition);
+  cursor: pointer;
+}
+
+// Stile di default (filled)
+.wp-block-button:not([class*="is-style"]) .wp-block-button__link {
+  background-color: var(--wp--preset--color--primary);
+  color: var(--wp--preset--color--white);
+  border: 2px solid var(--wp--preset--color--primary);
+
+  &:hover {
+    background-color: var(--wp--preset--color--secondary);
+    border-color: var(--wp--preset--color--secondary);
+    color: var(--wp--preset--color--white);
+  }
+}
+
+// Variante outline
+.wp-block-button.is-style-outline .wp-block-button__link {
+  background-color: transparent;
+  color: var(--wp--preset--color--primary);
+  border: 2px solid var(--wp--preset--color--primary);
+
+  &:hover {
+    background-color: var(--wp--preset--color--primary);
+    color: var(--wp--preset--color--white);
+  }
+}
+
+// Variante text-link
+.wp-block-button.is-style-text-link .wp-block-button__link {
+  background: none;
+  border: none;
+  color: var(--wp--preset--color--primary);
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-weight: 500;
+
+  &:hover {
+    color: var(--wp--preset--color--secondary);
+  }
+}

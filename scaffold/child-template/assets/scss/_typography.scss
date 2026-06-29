@@ -1,0 +1,31 @@
+// Tipografia
+// I valori vengono da theme.json via --wp--preset--font-*
+// Qui si definiscono solo regole strutturali e casi speciali
+
+// Link nel contenuto editoriale
+.entry-content,
+.wp-block-post-content {
+  a:not([class]) {
+    color: var(--wp--preset--color--primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--wp--custom--transition);
+
+    &:hover {
+      color: var(--wp--preset--color--secondary);
+    }
+  }
+}
+
+// Spaziature tra blocchi nel contenuto
+.wp-block-post-content {
+  > * + * {
+    margin-block-start: var(--wp--preset--spacing--5);
+  }
+
+  > h2,
+  > h3,
+  > h4 {
+    margin-block-start: var(--wp--preset--spacing--7);
+  }
+}

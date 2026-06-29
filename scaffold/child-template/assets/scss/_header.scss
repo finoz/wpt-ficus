@@ -1,0 +1,66 @@
+// Header del sito
+// La struttura HTML è in parts/header.html
+// WP wrappa il template part in <header class="wp-block-template-part">
+
+.wp-block-template-part[class*="header"] {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--wp--preset--color--white);
+  border-bottom: 1px solid var(--wp--preset--color--surface-alt);
+}
+
+.site-header__inner {
+  padding-inline: var(--wp--preset--spacing--6);
+  padding-block: var(--wp--preset--spacing--4);
+  max-width: var(--wp--style--global--wide-size);
+  margin-inline: auto;
+  align-items: center;
+}
+
+.site-header__logo {
+  flex-shrink: 0;
+}
+
+// Navigation block - stili per il menu principale
+.site-header__nav {
+  // Voci menu desktop
+  .wp-block-navigation__container {
+    gap: var(--wp--preset--spacing--5);
+  }
+
+  .wp-block-navigation-item__content {
+    color: var(--wp--preset--color--text);
+    font-size: var(--wp--preset--font-size--base);
+    font-weight: 500;
+    text-decoration: none;
+    padding: 0;
+    transition: color var(--wp--custom--transition);
+
+    &:hover {
+      color: var(--wp--preset--color--primary);
+    }
+  }
+
+  // Hamburger mobile - WP lo genera quando overlayMenu="mobile"
+  .wp-block-navigation__responsive-container-open {
+    color: var(--wp--preset--color--text);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--wp--preset--spacing--2);
+
+    svg {
+      display: block;
+    }
+  }
+
+  // Overlay mobile
+  .wp-block-navigation__responsive-container {
+    background-color: var(--wp--preset--color--white);
+
+    &.is-menu-open {
+      padding: var(--wp--preset--spacing--6);
+    }
+  }
+}

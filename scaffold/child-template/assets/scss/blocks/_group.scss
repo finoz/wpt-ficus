@@ -1,0 +1,15 @@
+// Group block - stili per le varianti registrate
+
+// Variante card
+.wp-block-group.is-style-card {
+  background-color: var(--wp--preset--color--white);
+  border-radius: var(--wp--custom--radius--md);
+  box-shadow: var(--wp--preset--shadow--sm);
+  padding: var(--wp--preset--spacing--6);
+}
+
+// Variante section - padding verticale generoso, sfondo alternativo
+.wp-block-group.is-style-section {
+  padding-block: var(--wp--preset--spacing--9);
+  background-color: var(--wp--preset--color--surface-alt);
+}

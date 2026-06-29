@@ -1,0 +1,33 @@
+// Reset minimale - non azzerare tutto, solo normalizzare
+// WP block theme ha già i suoi stili base
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+p,
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+// Rimuove i margini default che WP block theme non rimuove
+.wp-site-blocks {
+  > * + * {
+    margin-block-start: 0;
+  }
+}
