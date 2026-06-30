@@ -159,7 +159,13 @@ Stack:
 - Node 22 (nvm)
 
 Convenzioni SCSS:
-- Nessun valore hard-coded: usa sempre var(--wp--preset--color--*), var(--wp--preset--font-size--*), var(--wp--preset--spacing--*), var(--wp--custom--*)
+- Root font-size 10px via `html { font-size: 62.5% }` in _reset.scss → 1rem = 10px
+- Font-size: usa sempre `var(--wp--preset--font-size--*)`. I valori in theme.json sono i default mobile; _typography.scss li sovrascrive per desktop con `@media (min-width: 769px) { :root { --wp--preset--font-size--xl: 4.8rem; ... } }`. In questo modo anche i blocchi con font-size impostato dall'editor sono responsivi.
+- Spacing (padding, margin, gap): rem diretto — es. `2.4rem`, non `var(--wp--preset--spacing--md)`. Nessuna variabile per spacing.
+- Colori: sempre var(--wp--preset--color--*)
+- Famiglie font: sempre var(--wp--preset--font-family--)
+- Border-radius: var(--wp--custom--radius--sm|md|full)
+- Borders (hairline 1-2px): restano in px
 - Un file per contesto: _header.scss, _footer.scss, _layout.scss, _typography.scss, _reset.scss
 - blocks/: un file per ogni core block customizzato
 
