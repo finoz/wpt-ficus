@@ -15,9 +15,12 @@ add_action( 'wp_enqueue_scripts', function () {
 } );
 
 // Aggiornamento automatico del child da GitHub
-// (richiede Ficus_GitHub_Updater dal parent, già caricato da WP)
-new Ficus_GitHub_Updater(
-    'CHILDNAME',
-    'finoz/wpt-CHILDNAME',
-    wp_get_theme()->get( 'Version' )
-);
+// Wrappato in after_setup_theme: il child viene caricato prima del parent,
+// quindi Ficus_GitHub_Updater non è ancora disponibile al global scope.
+add_action( 'after_setup_theme', function () {
+    new Ficus_GitHub_Updater(
+        'CHILDNAME',
+        'finoz/wpt-CHILDNAME',
+        wp_get_theme()->get( 'Version' )
+    );
+} );

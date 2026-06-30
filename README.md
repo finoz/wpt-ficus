@@ -77,8 +77,42 @@ Lo script crea `../nome-progetto-wp/` con struttura completa e fa `npm install`.
 
 Il parent si aggiorna automaticamente. Il child lo attiva in `functions.php`:
 ```php
-new Ficus_GitHub_Updater( 'lomais', 'finoz/lomais-wp', wp_get_theme()->get('Version') );
+// IMPORTANTE: wrappare in after_setup_theme — il child carica prima del parent.
+add_action( 'after_setup_theme', function () {
+    new Ficus_GitHub_Updater( 'lomais', 'finoz/wpt-lomais', wp_get_theme()->get('Version') );
+} );
 ```
+
+### Procedura di rilascio aggiornamento
+
+L'updater controlla l'endpoint `releases/latest` di GitHub. Un semplice push **non** innesca nulla: serve una **Release** con tag semver.
+
+```bash
+# 1. Bump della versione in style.css
+#    Modifica la riga: Version: 1.0.0 → 1.1.0
+
+# 2. Commit e push
+git add .
+git commit -m "release: v1.1.0 - descrizione modifiche"
+git push
+
+# 3. Crea la Release su GitHub (con tag)
+gh release create v1.1.0 --title "v1.1.0" --notes "Descrizione modifiche"
+#    oppure da browser: repo → Releases → Draft a new release
+```
+
+Da quel momento WP vede l'aggiornamento disponibile nel pannello Aspetto → Temi.
+
+> Il tag deve corrispondere esattamente al valore `Version:` in `style.css`, preceduto da `v`.
+> Esempio: `Version: 1.1.0` → tag `v1.1.0`.
+
+**Cache:** l'updater mantiene un transient da 12h. Per forzare il controllo subito in sviluppo, aggiungi temporaneamente in `wp-config.php`:
+```php
+delete_transient( 'ficus_gh_release_' . md5( 'finoz/wpt-ficus' ) );
+```
+oppure disattiva e riattiva il tema.
+
+La stessa procedura vale identica per i child theme (wpt-lomais, wpt-pigmentalo).
 
 ---
 
