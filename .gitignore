@@ -1,0 +1,8 @@
+.env
+
+license.txt
+readme.html
+
+# OS
+.DS_Store
+Thumbs.db

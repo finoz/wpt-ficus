@@ -6,6 +6,11 @@
  * è compito del child theme chiamare ficus_enqueue_assets()
  * nel proprio hook, passando i path del child stesso.
  *
+ * Il child può definire la porta Vite con:
+ *   define( 'FICUS_VITE_PORT', 5174 );
+ * prima di chiamare ficus_enqueue_assets() — utile se si sviluppano
+ * due child in parallelo su porte diverse.
+ *
  * Esempio nel functions.php del child:
  *
  *   add_action( 'wp_enqueue_scripts', function () {
@@ -34,10 +39,25 @@ function ficus_get_vite_manifest( string $theme_dir ): array {
 }
 
 /**
- * Restituisce true se Vite è in modalità dev (manifest assente + WP_DEBUG).
+ * Verifica se il dev server Vite è attivo sulla porta indicata.
+ * Usa fsockopen: controlla se la porta risponde davvero,
+ * indipendentemente da WP_DEBUG o dalla presenza del manifest.
  */
-function ficus_is_vite_dev( string $theme_dir ): bool {
-    return defined( 'WP_DEBUG' ) && WP_DEBUG && empty( ficus_get_vite_manifest( $theme_dir ) );
+function ficus_is_vite_dev(): bool {
+    static $cache = [];
+    $port = defined( 'FICUS_VITE_PORT' ) ? (int) FICUS_VITE_PORT : 5173;
+
+    if ( isset( $cache[ $port ] ) ) {
+        return $cache[ $port ];
+    }
+
+    $conn = @fsockopen( 'localhost', $port, $errno, $errstr, 0.3 );
+    if ( is_resource( $conn ) ) {
+        fclose( $conn );
+        return $cache[ $port ] = true;
+    }
+
+    return $cache[ $port ] = false;
 }
 
 /**
@@ -49,8 +69,10 @@ function ficus_is_vite_dev( string $theme_dir ): bool {
  */
 function ficus_enqueue_assets( string $theme_dir, string $theme_uri, string $version ): void {
 
-    if ( ficus_is_vite_dev( $theme_dir ) ) {
-        $vite = 'http://localhost:5173';
+    $port = defined( 'FICUS_VITE_PORT' ) ? (int) FICUS_VITE_PORT : 5173;
+
+    if ( ficus_is_vite_dev() ) {
+        $vite = 'http://localhost:' . $port;
 
         wp_enqueue_script( 'vite-client', $vite . '/@vite/client', [], null, false );
         wp_scripts()->add_data( 'vite-client', 'type', 'module' );
