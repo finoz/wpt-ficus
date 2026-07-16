@@ -1,0 +1,12 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "ficus/primary-nav",
+    "title": "Primary Navigation",
+    "category": "theme",
+    "description": "Navigazione principale: toggle mobile + lista menu (wp_nav_menu).",
+    "supports": {
+        "html": false,
+        "inserter": false
+    }
+}

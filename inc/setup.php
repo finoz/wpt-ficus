@@ -13,6 +13,10 @@ add_action( 'after_setup_theme', function () {
     add_image_size( 'hero', 1600, 800, true );
 
     load_theme_textdomain( 'ficus', get_template_directory() . '/languages' );
+
+    register_nav_menus( [
+        'primary' => __( 'Navigazione principale', 'ficus' ),
+    ] );
 } );
 
 // ── Block styles — rimossi per controllo CSS totale dal child theme ──────────
@@ -51,6 +55,61 @@ add_action( 'wp_enqueue_scripts', function () {
         wp_deregister_style( $handle );
     }
 }, 200 );
+
+add_action( 'wp_enqueue_scripts', function () {
+    // Navigation block: rimuoviamo il JS nativo, gestiamo noi il toggle
+    wp_dequeue_script( 'wp-block-navigation-view' );
+    wp_deregister_script( 'wp-block-navigation-view' );
+}, 200 );
+
+// ── Blocco custom: navigazione principale ─────────────────────────────────────
+// Render server-side: bottone toggle + wp_nav_menu (location "primary").
+// Usato in parts/header.html come <!-- wp:ficus/primary-nav /-->
+
+add_action( 'init', function () {
+    register_block_type(
+        get_template_directory() . '/blocks/primary-nav/',
+        [
+            'render_callback' => function (): string {
+                if ( ! has_nav_menu( 'primary' ) ) return '';
+
+                ob_start();
+                ?>
+                <nav class="site-header__nav">
+                    <button
+                        class="site-nav__toggle"
+                        aria-expanded="false"
+                        aria-controls="site-nav-menu"
+                        aria-label="<?php esc_attr_e( 'Apri menu', 'ficus' ); ?>"
+                        type="button"
+                    ></button>
+                    <?php
+                    wp_nav_menu( [
+                        'theme_location' => 'primary',
+                        'container'      => false,
+                        'menu_id'        => 'site-nav-menu',
+                        'menu_class'     => 'site-nav__menu',
+                        'items_wrap'     => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+                        'depth'          => 2,
+                        'fallback_cb'    => false,
+                    ] );
+                    ?>
+                </nav>
+                <?php
+                return ob_get_clean();
+            },
+        ]
+    );
+} );
+
+// Rimuove l'SVG dal bottone hamburger — l'icona è gestita via CSS (::before/::after)
+add_filter( 'render_block_core/navigation', function ( string $html ): string {
+    return preg_replace(
+        '/(<button[^>]+wp-block-navigation__responsive-container-open[^>]*>)\s*<svg[\s\S]*?<\/svg>\s*(<\/button>)/i',
+        '$1$2',
+        $html
+    );
+} );
 
 // ── Pulizia <head> ────────────────────────────────────────────────────────────
 
