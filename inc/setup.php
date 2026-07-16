@@ -15,6 +15,43 @@ add_action( 'after_setup_theme', function () {
     load_theme_textdomain( 'ficus', get_template_directory() . '/languages' );
 } );
 
+// ── Block styles — rimossi per controllo CSS totale dal child theme ──────────
+
+add_theme_support( 'disable-layout-styles' );
+
+add_action( 'wp_enqueue_scripts', function () {
+    $handles = [
+        'wp-block-library',
+        'wp-block-library-theme',
+        'wp-block-site-logo',
+        'wp-block-page-list',
+        'wp-block-navigation',
+        'wp-block-group',
+        'wp-block-button',
+        'wp-block-buttons',
+        'wp-block-heading',
+        'wp-block-paragraph',
+        'wp-block-post-content',
+        'wp-block-site-title',
+        'wp-block-query',
+        'wp-block-post-template',
+        'wp-block-post-featured-image',
+        'wp-block-post-title',
+        'wp-block-post-excerpt',
+        'wp-block-post-terms',
+        'wp-block-post-date',
+        'wp-block-columns',
+        'wp-block-column',
+        'wp-block-image',
+        'wp-block-separator',
+        'wp-block-quote',
+    ];
+    foreach ( $handles as $handle ) {
+        wp_dequeue_style( $handle );
+        wp_deregister_style( $handle );
+    }
+}, 200 );
+
 // ── Pulizia <head> ────────────────────────────────────────────────────────────
 
 add_action( 'after_setup_theme', function () {
