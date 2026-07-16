@@ -30,6 +30,57 @@ In produzione il parent entra come **git submodule** in `wp-content/themes/ficus
 | Pipeline Vite + SCSS + TS          |                | X     |
 | Font self-hosted                   |                | X     |
 | CSS completo                       |                | X     |
+| Logo di default (file convention)  |                | X     |
+| Sistema fallback logo              | X              |       |
+
+---
+
+## Sistema logo con fallback
+
+Il parent gestisce il fallback automatico del logo. Il child non scrive PHP: basta mettere il file nel posto giusto.
+
+### Come funziona
+
+1. Il blocco `wp:site-logo` mostra il logo caricato in **Aspetto > Personalizza > Identità sito** (o Impostazioni > Generali in WP 6+).
+2. Se nessun logo admin è impostato, il blocco ritorna stringa vuota.
+3. Il filtro `render_block_core/site-logo` (in `inc/logo.php`) intercetta il caso vuoto e chiama `apply_filters('ficus_default_logo_html', '')`.
+4. Il callback di default cerca per convenzione il file `assets/images/logo.{png,svg,webp,jpg}` nella cartella del child theme (ordine di priorità: png, svg, webp, jpg).
+5. Se il file esiste, genera l'HTML del logo coerente con il markup standard di WP.
+6. Se il file non esiste e nessun logo admin è impostato, il blocco non renderizza nulla.
+
+Il logo impostato dall'admin ha sempre la precedenza sul file di default.
+
+### Cosa fa il child
+
+Nessun PHP. Basta mettere il file logo nella posizione attesa:
+
+```
+wp-content/themes/nome-child/assets/images/logo.png   ← (o .svg, .webp, .jpg)
+```
+
+### Helper PHP disponibili
+
+```php
+// Genera l'HTML del logo coerente con il markup WP.
+// $src: URL assoluto, $alt: testo alternativo, $width/$height: opzionali.
+ficus_logo_img( string $src, string $alt, int $width = 0, int $height = 0 ): string
+```
+
+### Override nel child theme
+
+Se il child ha esigenze particolari (alt personalizzato, dimensioni esplicite, sorgente diversa), può sovrascrivere il filtro con priorità più alta:
+
+```php
+// In functions.php del child theme:
+add_filter( 'ficus_default_logo_html', function (): string {
+    return ficus_logo_img(
+        get_stylesheet_directory_uri() . '/assets/images/logo-custom.svg',
+        'Nome Azienda',
+        240,  // width
+        48    // height
+    );
+}, 20 ); // priorità > 10 (default del parent)
+```
 
 ---
 
@@ -207,6 +258,7 @@ ficus-theme/
 ├── inc/
 │   ├── setup.php          theme support, image sizes
 │   ├── assets.php         ficus_enqueue_assets() — nessun hook diretto
+│   ├── logo.php           sistema fallback logo + ficus_logo_img()
 │   ├── block-styles.php   register/unregister block styles
 │   └── updater.php        Ficus_GitHub_Updater class
 └── scaffold/
