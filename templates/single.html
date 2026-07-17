@@ -1,34 +1,28 @@
 <!-- wp:template-part {"slug":"header","tagName":"header"} /-->
 
-<!-- wp:group {"tagName":"main","className":"site-main site-main--single","layout":{"type":"constrained"}} -->
+<!-- wp:group {"tagName":"main","className":"site-main site-main--single"} -->
 <main class="wp-block-group site-main site-main--single">
 
-	<!-- wp:group {"tagName":"article","className":"post-single","layout":{"type":"constrained"}} -->
-	<article class="wp-block-group post-single">
-
-		<!-- Header del post -->
-		<!-- wp:group {"className":"post-single__header","layout":{"type":"constrained"}} -->
-		<div class="wp-block-group post-single__header">
-			<!-- wp:post-terms {"term":"category","className":"post-single__category"} /-->
-			<!-- wp:post-title {"level":1} /-->
-			<!-- wp:group {"className":"post-single__meta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-			<div class="wp-block-group post-single__meta">
-				<!-- wp:post-author-name /-->
-				<!-- wp:post-date /-->
-				<!-- wp:post-terms {"term":"post_tag"} /-->
-			</div>
-			<!-- /wp:group -->
+	<!-- Header del post -->
+	<!-- wp:group {"className":"post-single__header"} -->
+	<div class="wp-block-group post-single__header">
+		<!-- wp:post-terms {"term":"category","className":"post-single__category"} /-->
+		<!-- wp:post-title {"level":1} /-->
+		<!-- wp:group {"className":"post-single__meta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group post-single__meta">
+			<!-- wp:post-author-name /-->
+			<!-- wp:post-date /-->
+			<!-- wp:post-terms {"term":"post_tag"} /-->
 		</div>
 		<!-- /wp:group -->
-
-		<!-- Immagine in evidenza -->
-		<!-- wp:post-featured-image {"aspectRatio":"4/3","align":"wide"} /-->
-
-		<!-- Contenuto -->
-		<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
-
-	</article>
+	</div>
 	<!-- /wp:group -->
+
+	<!-- Immagine in evidenza -->
+	<!-- wp:post-featured-image {"aspectRatio":"4/3","align":"wide"} /-->
+
+	<!-- Contenuto -->
+	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 
 	<!-- Navigazione tra post -->
 	<!-- wp:group {"className":"post-navigation","layout":{"type":"flex","justifyContent":"space-between"}} -->
@@ -37,6 +31,7 @@
 		<!-- wp:post-navigation-link {"type":"next","label":"Successivo"} /-->
 	</div>
 	<!-- /wp:group -->
+
 </main>
 <!-- /wp:group -->
 

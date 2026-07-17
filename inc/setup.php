@@ -82,7 +82,7 @@ add_action( 'init', function () {
                         aria-controls="site-nav-menu"
                         aria-label="<?php esc_attr_e( 'Apri menu', 'ficus' ); ?>"
                         type="button"
-                    ></button>
+                    ><span></span></button>
                     <?php
                     wp_nav_menu( [
                         'theme_location' => 'primary',
@@ -121,6 +121,25 @@ add_action( 'after_setup_theme', function () {
     remove_action( 'wp_head',        'rest_output_link_wp_head' );
     remove_action( 'wp_head',        'wp_oembed_add_host_js' );
     remove_action( 'wp_body_open',   'wp_global_styles_render_svg_filters' );
+} );
+
+// ── Block styles custom ───────────────────────────────────────────────────────
+
+add_action( 'init', function () {
+    $blocks = [
+        'core/paragraph',
+        'core/heading',
+        'core/group',
+        'core/columns',
+        'core/image',
+        'core/buttons',
+    ];
+    foreach ( $blocks as $block ) {
+        register_block_style( $block, [
+            'name'  => 'reading-width',
+            'label' => 'Reading',
+        ] );
+    }
 } );
 
 // ── Commenti — disabilitati a livello tema ────────────────────────────────────

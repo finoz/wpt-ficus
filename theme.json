@@ -54,11 +54,6 @@
           "slug": "sans",
           "name": "Sans",
           "fontFamily": "system-ui, -apple-system, sans-serif"
-        },
-        {
-          "slug": "serif",
-          "name": "Serif",
-          "fontFamily": "Georgia, serif"
         }
       ]
     },
