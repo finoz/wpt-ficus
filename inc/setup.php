@@ -125,6 +125,24 @@ add_action( 'after_setup_theme', function () {
 
 // ── Block styles custom ───────────────────────────────────────────────────────
 
+// Varianti pulsante — colori via color picker, stile via classe
+add_action( 'init', function () {
+    register_block_style( 'core/button', [
+        'name'       => 'filled',
+        'label'      => 'Pieno',
+        'is_default' => true,
+    ] );
+    register_block_style( 'core/button', [
+        'name'  => 'outline',
+        'label' => 'Outline',
+    ] );
+    register_block_style( 'core/button', [
+        'name'  => 'text-link',
+        'label' => 'Testo',
+    ] );
+} );
+
+// Larghezza reading — disponibile sui blocchi di testo e contenuto
 add_action( 'init', function () {
     $blocks = [
         'core/paragraph',
@@ -132,7 +150,6 @@ add_action( 'init', function () {
         'core/group',
         'core/columns',
         'core/image',
-        'core/buttons',
     ];
     foreach ( $blocks as $block ) {
         register_block_style( $block, [

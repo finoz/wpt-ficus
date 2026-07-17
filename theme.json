@@ -22,8 +22,8 @@
         { "slug": "accent",      "color": "#666666", "name": "Accent" },
         { "slug": "surface",     "color": "#F5F5F5", "name": "Surface" },
         { "slug": "surface-alt", "color": "#E5E5E5", "name": "Surface Alt" },
-        { "slug": "text",        "color": "#111111", "name": "Text" },
-        { "slug": "text-light",  "color": "#555555", "name": "Text Light" },
+        { "slug": "ink",         "color": "#111111", "name": "Text" },
+        { "slug": "ink-light",   "color": "#555555", "name": "Text Light" },
         { "slug": "white",       "color": "#FFFFFF", "name": "White" }
       ]
     },
