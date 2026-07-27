@@ -1,0 +1,13 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "ficus/archive-header",
+	"title": "Intestazione Archivio",
+	"category": "theme",
+	"description": "Titolo e intro dell'archivio. Adatta automaticamente il contenuto: excerpt della pagina articoli per il blog, descrizione del termine per tassonomie/autori/date.",
+	"textdomain": "ficus",
+	"render": "file:./archive-header.php",
+	"supports": {
+		"html": false
+	}
+}

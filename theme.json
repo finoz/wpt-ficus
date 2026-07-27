@@ -13,7 +13,7 @@
     "color": {
       "defaultPalette":   false,
       "defaultGradients": false,
-      "defaultDuotone":   false,
+      "defaultDuotone":   true,
       "custom":           false,
       "customGradient":   false,
       "palette": [
@@ -61,11 +61,10 @@
     "spacing": {
       "defaultSpacingSizes": false,
       "spacingSizes": [
-        { "slug": "xs",  "size": "1.0rem", "name": "XS"     },
-        { "slug": "sm",  "size": "1.6rem", "name": "Small"  },
-        { "slug": "md",  "size": "2.4rem", "name": "Medium" },
-        { "slug": "lg",  "size": "4.0rem", "name": "Large"  },
-        { "slug": "xl",  "size": "8.0rem", "name": "XL"     }
+        { "slug": "s",  "size": "2.4rem", "name": "S"  },
+        { "slug": "m",  "size": "4.0rem", "name": "M"  },
+        { "slug": "l",  "size": "6.4rem", "name": "L"  },
+        { "slug": "xl", "size": "9.6rem", "name": "XL" }
       ],
       "units": ["px", "rem", "em", "%", "vw", "vh"]
     },

@@ -4,6 +4,7 @@ defined( 'ABSPATH' ) || exit;
 add_action( 'after_setup_theme', function () {
     add_theme_support( 'title-tag' );
     add_theme_support( 'post-thumbnails' );
+    add_post_type_support( 'page', 'excerpt' ); // abilita il campo excerpt nelle pagine (usato come intro nei template di listato)
     add_theme_support( 'html5', [
         'search-form', 'comment-form', 'comment-list',
         'gallery', 'caption', 'style', 'script',
@@ -66,6 +67,12 @@ add_action( 'wp_enqueue_scripts', function () {
 // Render server-side: bottone toggle + wp_nav_menu (location "primary").
 // Usato in parts/header.html come <!-- wp:ficus/primary-nav /-->
 
+// Blocchi custom server-side rendered
+add_action( 'init', function () {
+    register_block_type( get_template_directory() . '/blocks/archive-header/' );
+    register_block_type( get_template_directory() . '/blocks/related-posts/' );
+} );
+
 add_action( 'init', function () {
     register_block_type(
         get_template_directory() . '/blocks/primary-nav/',
@@ -120,7 +127,25 @@ add_action( 'after_setup_theme', function () {
     remove_action( 'wp_head',        'rsd_link' );
     remove_action( 'wp_head',        'rest_output_link_wp_head' );
     remove_action( 'wp_head',        'wp_oembed_add_host_js' );
-    remove_action( 'wp_body_open',   'wp_global_styles_render_svg_filters' );
+    // wp_global_styles_render_svg_filters: NON rimuovere.
+    // Inietta i filtri SVG nel <body> necessari per il duotone sulle immagini.
+} );
+
+// ── Duotone SVG filters ───────────────────────────────────────────────────────
+// Fallback: in alcuni contesti FSE wp_body_open non basta.
+// wp_footer garantisce che i filtri SVG siano sempre presenti.
+add_action( 'wp_footer', 'wp_global_styles_render_svg_filters' );
+
+// Rimuove i preset duotone di WP core, mantiene solo quelli del tema.
+// Equivalente a defaultDuotone: false ma senza disabilitare la UI.
+// Con defaultDuotone: true (nel parent) la sezione è attiva;
+// questo filter svuota l'array "default" prima che arrivi all'editor.
+add_filter( 'wp_theme_json_data_default', function ( WP_Theme_JSON_Data $theme_json ): WP_Theme_JSON_Data {
+    $data = $theme_json->get_data();
+    if ( isset( $data['settings']['color']['duotone'] ) ) {
+        $data['settings']['color']['duotone'] = [];
+    }
+    return new WP_Theme_JSON_Data( $data, 'default' );
 } );
 
 // ── Block styles custom ───────────────────────────────────────────────────────
@@ -149,7 +174,6 @@ add_action( 'init', function () {
         'core/heading',
         'core/group',
         'core/columns',
-        'core/image',
     ];
     foreach ( $blocks as $block ) {
         register_block_style( $block, [
@@ -157,6 +181,31 @@ add_action( 'init', function () {
             'label' => 'Reading',
         ] );
     }
+} );
+
+// Stili nativi WP da rimuovere
+add_action( 'init', function () {
+    unregister_block_style( 'core/image', 'rounded' );
+} );
+
+// Varianti gallery
+add_action( 'init', function () {
+    register_block_style( 'core/gallery', [
+        'name'  => 'carousel',
+        'label' => 'Carousel',
+    ] );
+    register_block_style( 'core/gallery', [
+        'name'  => 'carousel-arrows',
+        'label' => 'Carousel (solo frecce)',
+    ] );
+    register_block_style( 'core/gallery', [
+        'name'  => 'carousel-dots',
+        'label' => 'Carousel (solo dots)',
+    ] );
+    register_block_style( 'core/gallery', [
+        'name'  => 'grid-lightbox',
+        'label' => 'Griglia + Lightbox',
+    ] );
 } );
 
 // ── Commenti — disabilitati a livello tema ────────────────────────────────────
