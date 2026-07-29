@@ -208,6 +208,9 @@ add_action( 'init', function () {
     ] );
 } );
 
+// ── Excerpt automatico — 20 parole ───────────────────────────────────────────
+add_filter( 'excerpt_length', fn(): int => 20 );
+
 // ── Commenti — disabilitati a livello tema ────────────────────────────────────
 
 add_action( 'init', function () {
