@@ -209,7 +209,12 @@ add_action( 'init', function () {
 } );
 
 // ── Excerpt automatico — 20 parole ───────────────────────────────────────────
-add_filter( 'excerpt_length', fn(): int => 20 );
+// excerpt_length non funziona con core/post-excerpt (WP7): intercettiamo il risultato finale.
+// $raw è vuoto solo per excerpt auto-generati; se è manuale non tocchiamo nulla.
+add_filter( 'wp_trim_excerpt', function ( string $text, string $raw ): string {
+    if ( $raw !== '' ) return $text;
+    return wp_trim_words( $text, 20, '&hellip;' );
+}, 999, 2 );
 
 // ── Commenti — disabilitati a livello tema ────────────────────────────────────
 
