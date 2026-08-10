@@ -4,31 +4,32 @@
 <main class="wp-block-group site-main site-main--single">
 
 	<!-- Header del post -->
-	<!-- wp:group {"className":"post-single__header"} -->
-	<div class="wp-block-group post-single__header">
-		<!-- wp:post-terms {"term":"category","className":"post-single__category"} /-->
-		<!-- wp:post-title {"level":1} /-->
-		<!-- wp:group {"className":"post-single__meta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
-		<div class="wp-block-group post-single__meta">
-			<!-- wp:post-author-name /-->
-			<!-- wp:post-date /-->
-			<!-- wp:post-terms {"term":"post_tag"} /-->
+	<!-- wp:group {"className":"entry-header"} -->
+	<div class="wp-block-group entry-header">
+		<!-- wp:group {"className":"entry-header__meta","layout":{"type":"flex","flexWrap":"nowrap"}} -->
+		<div class="wp-block-group entry-header__meta">
+			<!-- wp:post-terms {"term":"category","className":"entry-header__category"} /-->
+			<!-- wp:post-date {"format":"F Y","className":"entry-header__date"} /-->
 		</div>
 		<!-- /wp:group -->
+		<!-- wp:post-title {"level":1,"className":"entry-header__title"} /-->
+		<!-- wp:post-excerpt {"className":"entry-header__excerpt"} /-->
 	</div>
 	<!-- /wp:group -->
 
-	<!-- Immagine in evidenza -->
-	<!-- wp:post-featured-image {"aspectRatio":"4/3","align":"wide"} /-->
 
 	<!-- Contenuto -->
 	<!-- wp:post-content {"layout":{"type":"constrained"}} /-->
 
 	<!-- Navigazione tra post -->
-	<!-- wp:group {"className":"post-navigation","layout":{"type":"flex","justifyContent":"space-between"}} -->
-	<div class="wp-block-group post-navigation">
-		<!-- wp:post-navigation-link {"type":"previous","label":"Precedente"} /-->
-		<!-- wp:post-navigation-link {"type":"next","label":"Successivo"} /-->
+	<!-- wp:group {"tagName":"nav","className":"posts-navigation__wrapper","layout":{"type":"flex","justifyContent":"space-between"}} -->
+	<div class="wp-block-group posts-navigation__wrapper">
+		<!-- wp:group {"className":"posts-navigation","layout":{"type":"flex","justifyContent":"space-between"}} -->
+		<nav class="wp-block-group posts-navigation">
+			<!-- wp:post-navigation-link {"type":"previous","label":"Precedente"} /-->
+			<!-- wp:post-navigation-link {"type":"next","label":"Successivo"} /-->
+		</nav>
+		<!-- /wp:group -->
 	</div>
 	<!-- /wp:group -->
 
