@@ -1,5 +1,54 @@
-<!-- wp:group {"className":"site-footer__inner","layout":{"type":"constrained"}} -->
-<div class="wp-block-group site-footer__inner">
-	<!-- wp:site-title {"level":0,"isLink":false,"className":"site-footer__copy"} /-->
+<!-- wp:group {"className":"site-footer","backgroundColor":"primary","textColor":"white","layout":{"type":"default"}} -->
+<div class="wp-block-group site-footer has-primary-background-color has-white-color has-background has-text-color">
+
+	<!-- Main: brand + nav ──────────────────────────────────────────────── -->
+	<!-- wp:group {"className":"site-footer__main","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between","verticalAlignment":"top"}} -->
+	<div class="wp-block-group site-footer__main">
+
+		<!-- Brand: logo + tagline -->
+		<!-- wp:group {"className":"site-footer__brand","layout":{"type":"default"}} -->
+		<div class="wp-block-group site-footer__brand">
+			<!-- wp:site-logo {"width":160,"className":"site-footer__logo"} /-->
+			<!-- wp:paragraph {"className":"site-footer__tagline"} -->
+			<p class="site-footer__tagline">Testo descrittivo del sito.</p>
+			<!-- /wp:paragraph -->
+		</div>
+		<!-- /wp:group -->
+
+		<!-- Nav columns (duplicare il gruppo site-footer__nav-col per aggiungere colonne) -->
+		<!-- wp:group {"className":"site-footer__nav","layout":{"type":"flex","flexWrap":"nowrap","verticalAlignment":"top"}} -->
+		<div class="wp-block-group site-footer__nav">
+
+			<!-- Colonna 1 -->
+			<!-- wp:group {"className":"site-footer__nav-col","layout":{"type":"default"}} -->
+			<div class="wp-block-group site-footer__nav-col">
+				<!-- wp:heading {"level":2,"className":"site-footer__nav-title"} -->
+				<h2 class="wp-block-heading site-footer__nav-title">Menu</h2>
+				<!-- /wp:heading -->
+				<!-- wp:list {"className":"site-footer__nav-list"} -->
+				<ul class="wp-block-list site-footer__nav-list">
+					<!-- wp:list-item --><li><a href="#">Link</a></li><!-- /wp:list-item -->
+					<!-- wp:list-item --><li><a href="#">Link</a></li><!-- /wp:list-item -->
+					<!-- wp:list-item --><li><a href="#">Link</a></li><!-- /wp:list-item -->
+					<!-- wp:list-item --><li><a href="#">Link</a></li><!-- /wp:list-item -->
+				</ul>
+				<!-- /wp:list -->
+			</div>
+			<!-- /wp:group -->
+
+		</div>
+		<!-- /wp:group -->
+
+	</div>
+	<!-- /wp:group -->
+
+	<!-- Separatore ─────────────────────────────────────────────────────── -->
+	<!-- wp:separator {"className":"site-footer__separator is-style-wide"} /-->
+
+	<!-- Bottom bar ─────────────────────────────────────────────────────── -->
+	<!-- wp:paragraph {"align":"center","className":"site-footer__bottom"} -->
+	<p class="has-text-align-center site-footer__bottom">Copyright © 2025 | <a href="#">Privacy Policy</a></p>
+	<!-- /wp:paragraph -->
+
 </div>
 <!-- /wp:group -->
