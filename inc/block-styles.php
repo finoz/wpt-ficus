@@ -12,7 +12,8 @@
  *   core/image    → rounded
  *   core/separator→ leaf         (rimossi: wide, dots)
  *   core/quote    → highlight    (rimosso: plain)
- *   core/group    → card, section
+ *   core/group    → card, section, valign-top, valign-space-between
+ *   core/cover    → valign-top, valign-space-between
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -58,5 +59,23 @@ add_action( 'init', function () {
     register_block_style( 'core/group', [
         'name'  => 'section',
         'label' => __( 'Section', 'ficus' ),
+    ] );
+    register_block_style( 'core/group', [
+        'name'  => 'valign-top',
+        'label' => __( 'Valign: Top', 'ficus' ),
+    ] );
+    register_block_style( 'core/group', [
+        'name'  => 'valign-space-between',
+        'label' => __( 'Valign: Space between', 'ficus' ),
+    ] );
+
+    // --- COVER ---
+    register_block_style( 'core/cover', [
+        'name'  => 'valign-top',
+        'label' => __( 'Valign: Top', 'ficus' ),
+    ] );
+    register_block_style( 'core/cover', [
+        'name'  => 'valign-space-between',
+        'label' => __( 'Valign: Space between', 'ficus' ),
     ] );
 } );
