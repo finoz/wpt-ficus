@@ -53,7 +53,7 @@ class Ficus_GitHub_Updater {
                 'theme'       => $this->slug,
                 'new_version' => $latest,
                 'url'         => $release['html_url'],
-                'package'     => $release['zipball_url'],
+                'package'     => $this->get_package_url( $release ),
             ];
         }
 
@@ -78,7 +78,7 @@ class Ficus_GitHub_Updater {
             'author'        => 'Finoz',
             'homepage'      => "https://github.com/{$this->repo}",
             'sections'      => [ 'description' => $release['body'] ?? '' ],
-            'download_link' => $release['zipball_url'],
+            'download_link' => $this->get_package_url( $release ),
         ];
     }
 
@@ -89,6 +89,21 @@ class Ficus_GitHub_Updater {
         if ( ( $options['type'] ?? '' ) === 'theme' ) {
             delete_transient( $this->transient_key );
         }
+    }
+
+    /**
+     * Restituisce l'URL del pacchetto da scaricare.
+     * Preferisce il primo asset .zip allegato alla release (contiene il dist/ compilato).
+     * Se non ci sono asset allegati, cade sul zipball generato automaticamente da GitHub
+     * (usato da ficus che non ha step di build).
+     */
+    private function get_package_url( array $release ): string {
+        foreach ( $release['assets'] ?? [] as $asset ) {
+            if ( str_ends_with( $asset['name'], '.zip' ) ) {
+                return $asset['browser_download_url'];
+            }
+        }
+        return $release['zipball_url'];
     }
 
     /**
