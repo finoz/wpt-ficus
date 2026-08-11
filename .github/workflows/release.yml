@@ -12,6 +12,20 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+
+      - name: Create theme zip
+        run: |
+          mkdir -p /tmp/ficus-build
+          cp -r . /tmp/ficus-build/ficus
+          cd /tmp/ficus-build
+          zip -r ficus.zip ficus \
+            --exclude "ficus/.git/*" \
+            --exclude "ficus/.github/*" \
+            --exclude "ficus/scaffold/*" \
+            --exclude "*/.DS_Store"
+          mv ficus.zip $GITHUB_WORKSPACE/ficus.zip
+
       - uses: softprops/action-gh-release@v2
         with:
+          files: ficus.zip
           generate_release_notes: true
