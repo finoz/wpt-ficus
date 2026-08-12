@@ -39,6 +39,29 @@ function ficus_get_vite_manifest( string $theme_dir ): array {
 }
 
 /**
+ * Legge la porta Vite per il child theme.
+ *
+ * Priorità:
+ *   1. File .vite-dev (contiene la porta scritta da vite.config.ts al boot) — fonte primaria.
+ *   2. Costante FICUS_VITE_PORT in wp-config.php — override manuale.
+ *   3. 5173 — default.
+ *
+ * Grazie a questa logica non serve mai definire FICUS_VITE_PORT manualmente:
+ * basta impostare VITE_PORT nel .env del child theme e Vite scrive la porta
+ * in .vite-dev quando parte.
+ *
+ * @param string $theme_dir  Path del child theme (get_stylesheet_directory()).
+ */
+function ficus_get_vite_port( string $theme_dir ): int {
+    $flag = $theme_dir . '/.vite-dev';
+    if ( file_exists( $flag ) ) {
+        $port = (int) trim( file_get_contents( $flag ) );
+        if ( $port > 0 ) return $port;
+    }
+    return defined( 'FICUS_VITE_PORT' ) ? (int) FICUS_VITE_PORT : 5173;
+}
+
+/**
  * Verifica se il dev server Vite è attivo.
  *
  * Usa un file sentinel .vite-dev creato da vite.config.ts quando
@@ -65,7 +88,7 @@ function ficus_is_vite_dev(): bool {
  */
 function ficus_enqueue_assets( string $theme_dir, string $theme_uri, string $version ): void {
 
-    $port = defined( 'FICUS_VITE_PORT' ) ? (int) FICUS_VITE_PORT : 5173;
+    $port = ficus_get_vite_port( $theme_dir );
 
     if ( ficus_is_vite_dev() ) {
         $vite      = 'http://localhost:' . $port;
@@ -131,7 +154,7 @@ function ficus_add_editor_styles( string $theme_dir, string $theme_uri ): void {
         // e inietta un <link> al CSS Vite nel loro contentDocument.
         // Vite serve i file SCSS come CSS puro quando richiesti con Accept: text/css
         // (come fa un <link rel="stylesheet">), quindi l'URL diretto funziona.
-        $port    = defined( 'FICUS_VITE_PORT' ) ? (int) FICUS_VITE_PORT : 5173;
+        $port    = ficus_get_vite_port( $theme_dir );
         $css_url = 'http://localhost:' . $port . '/scss/main.scss';
 
         add_action( 'enqueue_block_editor_assets', function () use ( $css_url ) {

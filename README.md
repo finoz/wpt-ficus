@@ -189,6 +189,27 @@ cd wp-content/themes/lomais
 npm run build
 ```
 
+### Porta Vite
+
+`VITE_PORT` si definisce nel `.env` della root del progetto (stesso file usato da Docker Compose):
+
+```
+# lomais-wp/.env
+VITE_PORT=5173
+```
+
+Default senza `.env`: 5173. PHP legge la porta da `.vite-dev` (scritto da Vite al boot), senza bisogno di costanti in `wp-config.php`.
+
+Per sviluppare due child in parallelo senza conflitti, usa porte diverse nei rispettivi `.env` di root:
+
+```
+# lomais-wp/.env
+VITE_PORT=5173
+
+# pigmentalo-wp/.env
+VITE_PORT=5174
+```
+
 ---
 
 ## Prompt AI per generare un nuovo child theme
@@ -257,9 +278,11 @@ ficus-theme/
 ├── patterns/
 ├── inc/
 │   ├── setup.php          theme support, image sizes
-│   ├── assets.php         ficus_enqueue_assets() — nessun hook diretto
+│   ├── assets.php         ficus_enqueue_assets(), ficus_get_vite_port()
 │   ├── logo.php           sistema fallback logo + ficus_logo_img()
 │   ├── block-styles.php   register/unregister block styles
+│   ├── title.php          ficus_render_title_markup() — converte **testo** e _testo_ in HTML
+│   ├── posts-list.php     ficus_render_posts_list() — markup uniforme delle liste post
 │   └── updater.php        Ficus_GitHub_Updater class
 └── scaffold/
     ├── create-child.sh
