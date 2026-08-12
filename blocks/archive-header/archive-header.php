@@ -37,7 +37,7 @@ if ( is_home() ) {
 if ( ! $title ) return;
 ?>
 <div <?php echo get_block_wrapper_attributes( [ 'class' => 'archive-header entry-header' ] ); ?>>
-	<h1 class="entry-header__title"><?php echo esc_html( $title ); ?></h1>
+	<h1 class="entry-header__title"><?php echo ficus_render_title_markup( esc_html( $title ) ); ?></h1>
 	<?php if ( $intro ) : ?>
 	<p class="entry-header__excerpt"><?php echo wp_kses_post( $intro ); ?></p>
 	<?php endif; ?>

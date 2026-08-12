@@ -12,6 +12,7 @@ require_once get_template_directory() . '/inc/setup.php';
 require_once get_template_directory() . '/inc/assets.php';
 require_once get_template_directory() . '/inc/logo.php';
 require_once get_template_directory() . '/inc/block-styles.php';
+require_once get_template_directory() . '/inc/title.php';
 require_once get_template_directory() . '/inc/updater.php';
 
 // Aggiornamento automatico del parent da GitHub.
