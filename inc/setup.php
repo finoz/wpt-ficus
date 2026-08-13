@@ -6,8 +6,7 @@ add_action( 'after_setup_theme', function () {
     add_theme_support( 'post-thumbnails' );
     add_post_type_support( 'page', 'excerpt' ); // abilita il campo excerpt nelle pagine (usato come intro nei template di listato)
     add_theme_support( 'html5', [
-        'search-form', 'comment-form', 'comment-list',
-        'gallery', 'caption', 'style', 'script',
+        'search-form', 'gallery', 'caption', 'style', 'script',
     ] );
 
     add_image_size( 'card', 800, 500, true );
@@ -146,66 +145,6 @@ add_filter( 'wp_theme_json_data_default', function ( WP_Theme_JSON_Data $theme_j
         $data['settings']['color']['duotone'] = [];
     }
     return new WP_Theme_JSON_Data( $data, 'default' );
-} );
-
-// ── Block styles custom ───────────────────────────────────────────────────────
-
-// Varianti pulsante — colori via color picker, stile via classe
-add_action( 'init', function () {
-    register_block_style( 'core/button', [
-        'name'       => 'filled',
-        'label'      => 'Pieno',
-        'is_default' => true,
-    ] );
-    register_block_style( 'core/button', [
-        'name'  => 'outline',
-        'label' => 'Outline',
-    ] );
-    register_block_style( 'core/button', [
-        'name'  => 'text-link',
-        'label' => 'Testo',
-    ] );
-} );
-
-// Larghezza reading — disponibile sui blocchi di testo e contenuto
-add_action( 'init', function () {
-    $blocks = [
-        'core/paragraph',
-        'core/heading',
-        'core/group',
-        'core/columns',
-    ];
-    foreach ( $blocks as $block ) {
-        register_block_style( $block, [
-            'name'  => 'reading-width',
-            'label' => 'Reading',
-        ] );
-    }
-} );
-
-// Stili nativi WP da rimuovere
-add_action( 'init', function () {
-    unregister_block_style( 'core/image', 'rounded' );
-} );
-
-// Varianti gallery
-add_action( 'init', function () {
-    register_block_style( 'core/gallery', [
-        'name'  => 'carousel',
-        'label' => 'Carousel',
-    ] );
-    register_block_style( 'core/gallery', [
-        'name'  => 'carousel-arrows',
-        'label' => 'Carousel (solo frecce)',
-    ] );
-    register_block_style( 'core/gallery', [
-        'name'  => 'carousel-dots',
-        'label' => 'Carousel (solo dots)',
-    ] );
-    register_block_style( 'core/gallery', [
-        'name'  => 'grid-lightbox',
-        'label' => 'Griglia + Lightbox',
-    ] );
 } );
 
 // ── Excerpt automatico — 20 parole ───────────────────────────────────────────

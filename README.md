@@ -189,25 +189,30 @@ cd wp-content/themes/lomais
 npm run build
 ```
 
-### Porta Vite
+### Porte locali
 
-`VITE_PORT` si definisce nel `.env` della root del progetto (stesso file usato da Docker Compose):
+Tutte le porte sono configurabili nel `.env` della root del progetto, che è lo stesso file letto da Docker Compose e da Vite. I default sono già definiti nel compose, quindi il file è opzionale — va creato solo se devi cambiare qualcosa.
+
+```bash
+cp .env.example .env
+# poi modifica i valori che ti servono
+```
+
+Le variabili disponibili (con i loro default):
 
 ```
-# lomais-wp/.env
-VITE_PORT=5173
+WP_PORT=8080      # WordPress
+PMA_PORT=8081     # Adminer (interfaccia DB)
+VITE_PORT=5173    # dev server Vite
 ```
 
-Default senza `.env`: 5173. PHP legge la porta da `.vite-dev` (scritto da Vite al boot), senza bisogno di costanti in `wp-config.php`.
-
-Per sviluppare due child in parallelo senza conflitti, usa porte diverse nei rispettivi `.env` di root:
+Se sviluppi lomais e pigmentalo in parallelo, assegna porte diverse nei rispettivi `.env` per evitare conflitti:
 
 ```
-# lomais-wp/.env
-VITE_PORT=5173
-
-# pigmentalo-wp/.env
-VITE_PORT=5174
+# lomais/.env          # pigmentalo/.env
+WP_PORT=8080           WP_PORT=8082
+PMA_PORT=8081          PMA_PORT=8083
+VITE_PORT=5173         VITE_PORT=5174
 ```
 
 ---
