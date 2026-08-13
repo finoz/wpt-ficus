@@ -69,7 +69,6 @@ add_action( 'wp_enqueue_scripts', function () {
 // Blocchi custom server-side rendered
 add_action( 'init', function () {
     register_block_type( get_template_directory() . '/blocks/archive-header/' );
-    register_block_type( get_template_directory() . '/blocks/related-posts/' );
 } );
 
 add_action( 'init', function () {

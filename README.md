@@ -102,19 +102,6 @@ Rimossi dal core: `separator/wide`, `separator/dots`, `quote/plain`.
 
 ---
 
-## Creare un nuovo child theme
-
-```bash
-cd ficus-theme
-./scaffold/create-child.sh nome-progetto
-```
-
-Lo script crea `../nome-progetto-wp/` con struttura completa e fa `npm install`.
-
-**Prerequisiti:** Node 22+ (`nvm use` nella root del progetto).
-
----
-
 ## GitHub Updater
 
 `Ficus_GitHub_Updater` è una classe PHP nel parent, riutilizzabile dal child.
@@ -280,17 +267,16 @@ ficus-theme/
 ├── parts/
 │   ├── header.html
 │   └── footer.html
-├── patterns/
+├── blocks/
+│   ├── archive-header/    blocco PHP per intestazione archivi/home
+│   └── primary-nav/       blocco PHP per navigazione principale
+├── parts/post-card.php    partial riusabile per la card post
 ├── inc/
-│   ├── setup.php          theme support, image sizes
+│   ├── setup.php          theme support, image sizes, registrazione blocchi
 │   ├── assets.php         ficus_enqueue_assets(), ficus_get_vite_port()
 │   ├── logo.php           sistema fallback logo + ficus_logo_img()
 │   ├── block-styles.php   register/unregister block styles
 │   ├── title.php          ficus_render_title_markup() — converte **testo** e _testo_ in HTML
 │   ├── posts-list.php     ficus_render_posts_list() — markup uniforme delle liste post
 │   └── updater.php        Ficus_GitHub_Updater class
-└── scaffold/
-    ├── create-child.sh
-    ├── child-template/    template del child theme
-    └── project-template/  template della root del progetto
 ```

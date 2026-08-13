@@ -10,8 +10,8 @@
 
 	<!-- Query con inherit:true — segue automaticamente la query WP della pagina corrente
 	     (archivio categoria, tag, autore, data, ricerca, ecc.) -->
-	<!-- wp:query {"queryId":1,"query":{"inherit":true},"className":"posts-grid"} -->
-	<div class="wp-block-query posts-grid">
+	<!-- wp:query {"queryId":1,"query":{"inherit":true},"className":"posts-grid posts-grid--archive"} -->
+	<div class="posts-grid posts-grid--archive">
 
 		<!-- wp:post-template {"layout":{"type":"grid"}} -->
 		<!-- wp:group {"className":"post-card","layout":{"type":"default"}} -->
@@ -34,7 +34,7 @@
 		<!-- /wp:paragraph -->
 		<!-- /wp:query-no-results -->
 
-		<!-- wp:query-pagination {"layout":{"type":"flex","justifyContent":"center"}} -->
+		<!-- wp:query-pagination {"className":"posts-navigation"} -->
 		<!-- wp:query-pagination-previous /-->
 		<!-- wp:query-pagination-next /-->
 		<!-- /wp:query-pagination -->
